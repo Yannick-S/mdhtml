@@ -28,7 +28,9 @@ notifications:
 
 script:
   - go version
+  - cd mdhtml
   - go test -coverprofile=coverage.txt -covermode=atomic 
+  - cd ..
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
