@@ -1,5 +1,5 @@
 [![BuildStatus](https://travis-ci.org/Yannick-S/mdhtml.svg?branch=master)](https://travis-ci.org/Yannick-S/mdhtml)
-![Codecov](https://img.shields.io/codecov/c/github/Yannick-S/mdhtml.svg)
+[![Codecov](https://img.shields.io/codecov/c/github/Yannick-S/mdhtml.svg)](https://codecov.io/github/Yannick-S/mdhtml?branch=master)
 [![Go ReportCard](https://goreportcard.com/badge/github.com/Yannick-S/mdhtml)](https://goreportcard.com/report/github.com/Yannick-S/mdhtml)
 [![Documentation](https://godoc.org/github.com/Yannick-S/mdhtml?status.svg)](http://godoc.org/github.com/Yannick-S/mdhtml)
 ![GitHub](https://img.shields.io/github/license/Yannick-S/mdhtml.svg)
