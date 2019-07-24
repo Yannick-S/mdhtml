@@ -19,8 +19,10 @@ func main() {
 	inFile := *inFilePtr
 	outFile := *outFilePtr
 
-	//TODO: Implement the following
+	// after this block, b is the input file
+	var b []byte
 	if inFile == ""{
+		//TODO: Implement the following
 		fmt.Println("Pipeing should be here, not implemented yet")
 		panic(errors.New("Not Implemented"))
 	} else {
@@ -31,15 +33,15 @@ func main() {
 		}
 		defer file.Close()
 	
-		b, err := ioutil.ReadAll(file)
+		b, err = ioutil.ReadAll(file)
 		if err != nil {
         	panic(err)
 		}
-
-		//TODO: do the conversion here
-		fmt.Println(string(b))
-		mdhtml.Convert()
 	}
+
+	//Conversion happens here
+
+	mdhtml.Convert(b)
 
 	//TODO: Implement the following
 	if outFile == ""{
