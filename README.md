@@ -3,3 +3,4 @@
 [![Go ReportCard](https://goreportcard.com/badge/github.com/Yannick-S/mdhtml)](https://goreportcard.com/report/github.com/Yannick-S/mdhtml)
 [![Documentation](https://godoc.org/github.com/Yannick-S/mdhtml?status.svg)](http://godoc.org/github.com/Yannick-S/mdhtml)
 ![GitHub](https://img.shields.io/github/license/Yannick-S/mdhtml.svg)
+![GitHub tag (latest by date)](https://img.shields.io/github/tag-date/Yannick-S/mdhtml.svg)
