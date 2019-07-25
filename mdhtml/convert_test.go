@@ -1,7 +1,8 @@
 package mdhtml
 
-import "testing"
-import "fmt"
+import (
+	"testing"
+)
 
 // func TestConvert(t *testing.T){
 // 	Convert()
@@ -20,25 +21,20 @@ func TestToLines(t *testing.T){
 	}
 	var testPairs = []tests{
 		{nil, nil},
-		{[]byte(""), nil},
-		{[]byte("\n"), nil},
-		{[]byte("\n\n"), nil},
+		{[]byte(""), []string{""}},
+		{[]byte("\n"), []string{""}},
+		{[]byte("\n\n"), []string{"",""}},
 		{[]byte("first\n"),[]string{"first"}},
-		{[]byte("\nfirst"),[]string{"first"}},
-		{[]byte("\nfirst\n"),[]string{"first"}},
+		{[]byte("\nfirst"),[]string{"","first"}},
+		{[]byte("\nfirst\n"),[]string{"","first"}},
 		{[]byte("first\nsecond"),[]string{"first", "second"}},
 		{[]byte("first\nsecond\n"),[]string{"first", "second"}},
-		{[]byte("first\n\nsecond"),[]string{"first", "second"}},
+		{[]byte("first\n\nsecond"),[]string{"first", "", "second"}},
 		
 	}
 
 	for _, pair := range testPairs {
-		fmt.Println("Start")
-		fmt.Println(pair)
 		lines := toLines(pair.Input)
-		fmt.Println(lines)
-		fmt.Println(len(lines))
-		fmt.Println(len(pair.Output))
 		for index, line:= range lines {
 			if line != pair.Output[index]{
 			t.Error(
@@ -49,6 +45,96 @@ func TestToLines(t *testing.T){
 			}
 		}
 	}
-	
+}
+
+func TestShortenBlankLines(t *testing.T){
+	type tests struct{
+		Input []string
+		Output []string
+	}
+	var testPairs = []tests{
+		{nil, nil},
+		{[]string{""}, []string{""}},
+		{[]string{"\n"}, []string{""}},
+		{[]string{" "}, []string{""}},
+		{[]string{"   "}, []string{""}},
+		{[]string{" \n  \t\n"}, []string{""}},
+		{[]string{"\t"}, []string{""}},
+		{[]string{"  \t"}, []string{""}},
+		{[]string{"  \ta"}, []string{"  \ta"}},
+		{[]string{" a \t"}, []string{" a \t"}},
+	}
+	for _, pair := range testPairs {
+		lines := shortenBlankLines(pair.Input)
+		for index, line:= range lines {
+			if line != pair.Output[index]{
+			t.Error(
+				"Error Shortening:", pair.Input,
+				"expected" , pair.Output,
+				"got", lines, 
+			)
+			}
+		}
+	}
+}
+
+func TestToBlocks(t *testing.T){
+	type tests struct{
+		Input []string
+		Output [][]string
+	}
+	var testPairs = []tests{
+		{nil, nil},
+		{[]string{""}, [][]string{[]string{""}}},
+		{[]string{""}, [][]string{[]string{"1"}}},
+		{[]string{"Hi"}, [][]string{[]string{"Hi"}}},
+		{[]string{"Hi","how are","you"}, [][]string{[]string{"Hi","how are","you"}}},
+		{[]string{"Hi","how are","","you"}, [][]string{[]string{"Hi","how are"},[]string{"you"}}},
+	}
+
+	for _, pair := range testPairs {
+		blocks := toBlocks(pair.Input)
+		for index, block := range blocks {
+			for block_index, block_line := range block {
+				if block_line != pair.Output[index][block_index]{
+					t.Error(
+						"Error with blocks:", pair.Input,
+						"expected" , pair.Output,
+						"got", block, 
+					)
+				}
+			}
+		}
+	}
 
 }
+//func TestHeaders(t *testing.T){
+//	type tests struct {
+//		Input string
+//		Output string
+//	}	
+//
+//	var testPairs = []tests{
+//		{"", ""},
+//		{"abc", "abc"},
+//		{"\n", "\n"},
+//		{"\t#","\t#"},
+//		{"    #hi", "    #hi"},
+//		{"     # hi", "     # hi"},
+//		{"# abc", "<h1> abc<h1>"},
+//		{"#abc", "<h1>abc<h1>"},
+//		{"#", "<h1><h1>"},
+//		{" #", " #"},
+//	}
+//	for _, pair := range testPairs {
+//		out := Headers(pair.Input)
+//		if out != pair.Output {
+//			t.Error(
+//				"Error on Headers:", pair.Input, 
+//				"should be turned to", pair.Output,
+//				"but was turned to", out,
+//			)
+//		}
+//	}
+//
+//}
