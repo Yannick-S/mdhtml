@@ -41,7 +41,14 @@ func main() {
 
 	//Conversion happens here
 
-	mdhtml.Convert(b)
+
+	blocks := mdhtml.Convert(b)
+	for _, block := range blocks{
+		fmt.Println("New Block:")
+		for _, line := range block {
+			fmt.Println("\tLine:", line)
+		}
+	}
 
 	//TODO: Implement the following
 	if outFile == ""{

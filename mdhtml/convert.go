@@ -4,6 +4,13 @@ import (
 	"strings"
 )
 
+func Convert(b []byte) [][]string{
+	lines := toLines(b)
+	lines = shortenBlankLines(lines)
+	blocks := toBlocks(lines)
+
+	return blocks
+}
 // splits the bytes into an array of lines
 func toLines(b []byte) []string {
 	if b == nil {
