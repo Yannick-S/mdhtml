@@ -6,13 +6,13 @@ import (
 	"errors"
 	"os"
 	"io/ioutil"
-	"github.com/Yannick-S/mdhtml/mdhtml"
+	"./mdhtml"
 )
 
 func main() {
 	//Define the flags
-	inFilePtr := flag.String("in", "none", "input file name")
-	outFilePtr := flag.String("out", "none", "output file name")
+	inFilePtr := flag.String("in", "", "input file name")
+	outFilePtr := flag.String("out", "", "output file name")
 
 	//Parse the flags
 	flag.Parse()
