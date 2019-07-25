@@ -28,3 +28,7 @@ $ [TODO] cat test.md | ./mdhtml > test.html
 
 - 0.1 Initial Tests
 - 0.2 Getting Travis and codecov to work. Adding more badges while I was at it.
+- 0.3 Starting on actual project. It also seems that I have misunderstood how
+  tags worked before
+- 0.4 At this stage, blocks work. Later I will need to split this package into
+  two, one library and one cli
