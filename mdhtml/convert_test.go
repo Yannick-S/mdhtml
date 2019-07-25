@@ -68,6 +68,42 @@ func TestShortenBlankLines(t *testing.T) {
 	}
 }
 
+func TestSpaceToTab(t *testing.T){
+	type tests struct {
+		Input  []string
+		Output []string
+	}
+	var testPairs = []tests{
+		{nil, nil},
+		{[]string{""}, []string{""}},
+		{[]string{"\n"}, []string{"\n"}},
+		{[]string{" "}, []string{" "}},
+		{[]string{"   "}, []string{"   "}},
+		{[]string{" \n  \t\n"}, []string{" \n  \t\n"}},
+		{[]string{"\t"}, []string{"\t"}},
+		{[]string{"  \t"}, []string{"  \t"}},
+		{[]string{"  \ta"}, []string{"  \ta"}},
+		{[]string{" a \t"}, []string{" a \t"}},
+		{[]string{"    "}, []string{"\t"}},
+		{[]string{"    abc"}, []string{"\tabc"}},
+		{[]string{"      c"}, []string{"\t  c"}},
+		{[]string{"        "}, []string{"\t\t"}},
+		{[]string{"        abc"}, []string{"\t\tabc"}},
+	}
+	for _, pair := range testPairs {
+		lines := spaceToTab(pair.Input)
+		for index, line := range lines {
+			if line != pair.Output[index] {
+				t.Error(
+					"Error Space-To-Tab:", pair.Input,
+					"expected", pair.Output,
+					"got", lines,
+				)
+			}
+		}
+	}
+}
+
 func TestToBlocks(t *testing.T) {
 	type tests struct {
 		Input  []string

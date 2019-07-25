@@ -7,6 +7,7 @@ import (
 func Convert(b []byte) [][]string{
 	lines := toLines(b)
 	lines = shortenBlankLines(lines)
+	lines = spaceToTab(lines)
 	blocks := toBlocks(lines)
 
 	return blocks
@@ -39,6 +40,22 @@ func shortenBlankLines(strArr []string) []string {
 		trim := strings.TrimSpace(line)
 		if trim == "" {
 			strArr[index] = ""
+		}
+	}
+	return strArr
+}
+
+// replaces 4 spaces with tabs, for easier processing later
+func spaceToTab(strArr []string) []string{
+	for index := range strArr {
+		nrTabs := 0
+		for len(strArr[index]) >= 4 && strArr[index][:4] == "    "{
+			strArr[index] = strArr[index][4:]
+			nrTabs += 1
+		}
+		for nrTabs > 0 {
+			strArr[index] = "\t" + strArr[index]
+			nrTabs -= 1
 		}
 	}
 	return strArr
