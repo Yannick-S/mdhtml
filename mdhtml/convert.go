@@ -5,7 +5,7 @@ import (
 )
 
 // splits the bytes into an array of lines
-func toLines(b []byte) []string{
+func toLines(b []byte) []string {
 	if b == nil {
 		return nil
 	}
@@ -27,10 +27,10 @@ func toLines(b []byte) []string{
 }
 
 // lines which are complelety blank should be turned to just ""
-func shortenBlankLines(strArr []string) []string{
-	for index, line := range(strArr){
+func shortenBlankLines(strArr []string) []string {
+	for index, line := range strArr {
 		trim := strings.TrimSpace(line)
-		if trim == ""{
+		if trim == "" {
 			strArr[index] = ""
 		}
 	}
@@ -39,10 +39,10 @@ func shortenBlankLines(strArr []string) []string{
 
 // blocks are separated by "", and should be handled independ of one another
 func toBlocks(strArr []string) [][]string {
-	var finalArr  [][]string
+	var finalArr [][]string
 	var thisBlock []string
 
-	for _, line := range(strArr){
+	for _, line := range strArr {
 		//An empty line suggests a new block should be started.
 		//Add what we have, and reset thisBlock
 		if line == "" {

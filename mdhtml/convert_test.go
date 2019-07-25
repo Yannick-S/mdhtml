@@ -4,52 +4,42 @@ import (
 	"testing"
 )
 
-// func TestConvert(t *testing.T){
-// 	Convert()
-// 	if false {
-// 			t.Error(
-// 				"Got error",
-// 			)
-// 		}
-// }
-// 
-
-func TestToLines(t *testing.T){
-	type tests struct{
-		Input []byte
+func TestToLines(t *testing.T) {
+	type tests struct {
+		Input  []byte
 		Output []string
 	}
 	var testPairs = []tests{
 		{nil, nil},
 		{[]byte(""), []string{""}},
+		{[]byte("a"), []string{"a"}},
 		{[]byte("\n"), []string{""}},
-		{[]byte("\n\n"), []string{"",""}},
-		{[]byte("first\n"),[]string{"first"}},
-		{[]byte("\nfirst"),[]string{"","first"}},
-		{[]byte("\nfirst\n"),[]string{"","first"}},
-		{[]byte("first\nsecond"),[]string{"first", "second"}},
-		{[]byte("first\nsecond\n"),[]string{"first", "second"}},
-		{[]byte("first\n\nsecond"),[]string{"first", "", "second"}},
-		
+		{[]byte("\n\n"), []string{"", ""}},
+		{[]byte("first\n"), []string{"first"}},
+		{[]byte("\nfirst"), []string{"", "first"}},
+		{[]byte("\nfirst\n"), []string{"", "first"}},
+		{[]byte("first\nsecond"), []string{"first", "second"}},
+		{[]byte("first\nsecond\n"), []string{"first", "second"}},
+		{[]byte("first\n\nsecond"), []string{"first", "", "second"}},
 	}
 
 	for _, pair := range testPairs {
 		lines := toLines(pair.Input)
-		for index, line:= range lines {
-			if line != pair.Output[index]{
-			t.Error(
-				"Error Spliting", string(pair.Input),
-				"expected" , pair.Output,
-				"got", lines, 
-			)
+		for index, line := range lines {
+			if line != pair.Output[index] {
+				t.Error(
+					"Error Spliting", string(pair.Input),
+					"expected", pair.Output,
+					"got", lines,
+				)
 			}
 		}
 	}
 }
 
-func TestShortenBlankLines(t *testing.T){
-	type tests struct{
-		Input []string
+func TestShortenBlankLines(t *testing.T) {
+	type tests struct {
+		Input  []string
 		Output []string
 	}
 	var testPairs = []tests{
@@ -66,21 +56,21 @@ func TestShortenBlankLines(t *testing.T){
 	}
 	for _, pair := range testPairs {
 		lines := shortenBlankLines(pair.Input)
-		for index, line:= range lines {
-			if line != pair.Output[index]{
-			t.Error(
-				"Error Shortening:", pair.Input,
-				"expected" , pair.Output,
-				"got", lines, 
-			)
+		for index, line := range lines {
+			if line != pair.Output[index] {
+				t.Error(
+					"Error Shortening:", pair.Input,
+					"expected", pair.Output,
+					"got", lines,
+				)
 			}
 		}
 	}
 }
 
-func TestToBlocks(t *testing.T){
-	type tests struct{
-		Input []string
+func TestToBlocks(t *testing.T) {
+	type tests struct {
+		Input  []string
 		Output [][]string
 	}
 	var testPairs = []tests{
@@ -88,19 +78,19 @@ func TestToBlocks(t *testing.T){
 		{[]string{""}, [][]string{[]string{""}}},
 		{[]string{""}, [][]string{[]string{"1"}}},
 		{[]string{"Hi"}, [][]string{[]string{"Hi"}}},
-		{[]string{"Hi","how are","you"}, [][]string{[]string{"Hi","how are","you"}}},
-		{[]string{"Hi","how are","","you"}, [][]string{[]string{"Hi","how are"},[]string{"you"}}},
+		{[]string{"Hi", "how are", "you"}, [][]string{[]string{"Hi", "how are", "you"}}},
+		{[]string{"Hi", "how are", "", "you"}, [][]string{[]string{"Hi", "how are"}, []string{"you"}}},
 	}
 
 	for _, pair := range testPairs {
 		blocks := toBlocks(pair.Input)
 		for index, block := range blocks {
 			for block_index, block_line := range block {
-				if block_line != pair.Output[index][block_index]{
+				if block_line != pair.Output[index][block_index] {
 					t.Error(
 						"Error with blocks:", pair.Input,
-						"expected" , pair.Output,
-						"got", block, 
+						"expected", pair.Output,
+						"got", block,
 					)
 				}
 			}
@@ -108,33 +98,3 @@ func TestToBlocks(t *testing.T){
 	}
 
 }
-//func TestHeaders(t *testing.T){
-//	type tests struct {
-//		Input string
-//		Output string
-//	}	
-//
-//	var testPairs = []tests{
-//		{"", ""},
-//		{"abc", "abc"},
-//		{"\n", "\n"},
-//		{"\t#","\t#"},
-//		{"    #hi", "    #hi"},
-//		{"     # hi", "     # hi"},
-//		{"# abc", "<h1> abc<h1>"},
-//		{"#abc", "<h1>abc<h1>"},
-//		{"#", "<h1><h1>"},
-//		{" #", " #"},
-//	}
-//	for _, pair := range testPairs {
-//		out := Headers(pair.Input)
-//		if out != pair.Output {
-//			t.Error(
-//				"Error on Headers:", pair.Input, 
-//				"should be turned to", pair.Output,
-//				"but was turned to", out,
-//			)
-//		}
-//	}
-//
-//}
