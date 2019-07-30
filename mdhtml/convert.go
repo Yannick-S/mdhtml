@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func Convert(b []byte) [][]string{
+func Convert(b []byte) [][]string {
 	lines := toLines(b)
 	lines = shortenBlankLines(lines)
 	lines = spaceToTab(lines)
@@ -12,6 +12,7 @@ func Convert(b []byte) [][]string{
 
 	return blocks
 }
+
 // splits the bytes into an array of lines
 func toLines(b []byte) []string {
 	if b == nil {
@@ -46,20 +47,38 @@ func shortenBlankLines(strArr []string) []string {
 }
 
 // replaces 4 spaces with tabs, for easier processing later
-func spaceToTab(strArr []string) []string{
+func spaceToTab(strArr []string) []string {
 	for index := range strArr {
+		nrSpaces := 0
 		nrTabs := 0
-		for len(strArr[index]) >= 4 && strArr[index][:4] == "    "{
-			strArr[index] = strArr[index][4:]
-			nrTabs += 1
+		for _, c := range strArr[index] {
+			if c == ' ' {
+				nrSpaces++
+			} else if c == '\t' {
+				nrTabs++
+			} else {
+				break
+			}
 		}
-		for nrTabs > 0 {
+		strArr[index] = strArr[index][nrTabs+nrSpaces:]
+		nrSpaces = nrSpaces / 4
+
+		for i := 0; i < nrSpaces+nrTabs; i++ {
 			strArr[index] = "\t" + strArr[index]
-			nrTabs -= 1
 		}
 	}
 	return strArr
 }
+
+// remove starting spaces
+//func removeFrontSpaces(strArr []string) []string {
+//	for index := range strArr {
+//		for len(strArr[index]) > 0 && strArr[index][0:1] == " " {
+//			strArr[index] = strArr[index][1:]
+//		}
+//	}
+//	return strArr
+//}
 
 // blocks are separated by "", and should be handled independ of one another
 func toBlocks(strArr []string) [][]string {
