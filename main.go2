@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"flag"
 	"errors"
-	"os"
+	"flag"
+	"fmt"
 	"io/ioutil"
+	"os"
+
 	"./mdhtml"
 )
 
@@ -21,29 +22,28 @@ func main() {
 
 	// after this block, b is the input file
 	var b []byte
-	if inFile == ""{
+	if inFile == "" {
 		//TODO: Implement the following
 		fmt.Println("Pipeing should be here, not implemented yet")
 		panic(errors.New("Not Implemented"))
 	} else {
 		//Open File for Reading
 		file, err := os.Open(inFile)
-    	if err != nil {
-        	panic(err)
+		if err != nil {
+			panic(err)
 		}
 		defer file.Close()
-	
+
 		b, err = ioutil.ReadAll(file)
 		if err != nil {
-        	panic(err)
+			panic(err)
 		}
 	}
 
 	//Conversion happens here
 
-
 	blocks := mdhtml.Convert(b)
-	for _, block := range blocks{
+	for _, block := range blocks {
 		fmt.Println("New Block:")
 		for _, line := range block {
 			fmt.Println("\tLine:", line)
@@ -51,7 +51,7 @@ func main() {
 	}
 
 	//TODO: Implement the following
-	if outFile == ""{
+	if outFile == "" {
 		fmt.Println("Saving to standard file should be implemented here, not implemented yet")
 		panic(errors.New("Not Implemented"))
 	} else {
