@@ -16,6 +16,12 @@ This project is inspired by a Podcast I heard
 [here](https://testandcode.com/80), which creates the same library, however
 written in python.
 
+After a while I have realized several flaws with Markdowns documentation, and
+decided to switch to creating a CommonMark parser. The reasons for this are
+outlined in [Commonmark's Homepage](https://commonmark.org/). Furthre, there is
+an extensive testing suite. Thus, once the testing suite is satisfied, I know
+that this project works.
+
 ### Usage
 
 ```
@@ -32,3 +38,4 @@ $ [TODO] cat test.md | ./mdhtml > test.html
   tags worked before
 - 0.4 At this stage, blocks work. Later I will need to split this package into
   two, one library and one cli
+- 0.5 Some work was done, and I decided to switch to Common Mark.
